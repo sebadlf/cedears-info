@@ -127,3 +127,10 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+compra santander.txt
+venta santander.txt
+chromedriver
+important.json
+info.json
+test.py
