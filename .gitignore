@@ -134,3 +134,4 @@ chromedriver
 important.json
 info.json
 test.py
+authorized_user.json

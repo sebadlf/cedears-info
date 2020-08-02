@@ -6,9 +6,16 @@ from marketwatch import get_marketwatch_data
 
 from marketwatch import get_result_dict as get_marketwatch_empty_dict
 
+from pyvirtualdisplay import Display
+
 import json
 import time
 import gspread
+import sys
+
+if sys.platform == 'linux':
+    display = Display(visible=0, size=(1980, 1200))
+    display.start()
 
 gc = gspread.oauth()
 

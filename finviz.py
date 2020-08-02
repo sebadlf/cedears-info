@@ -11,13 +11,10 @@ from datetime import datetime as dt
 
 from utils import get_float
 
+from get_webdriver import get_webdriver
+
 import time
 import sys
-
-chrome_driver_path = './chromedriver'
-
-chrome_options = Options()
-chrome_options.add_argument('--headless')
 
 def get_result_dict():
     result = {
@@ -48,9 +45,7 @@ def get_finviz_data(ticker):
 
 def get_finviz_raw_data(ticker):
 
-    wd = webdriver.Chrome(
-    executable_path=chrome_driver_path, options=chrome_options
-    )
+    wd = get_webdriver()
 
     url = f"https://finviz.com/quote.ashx?t={ticker}"
 
@@ -110,4 +105,4 @@ def get_finviz_raw_data(ticker):
 
         return result
 
-#print(get_finviz_data("bidu"))
+print(get_finviz_data("bidu"))

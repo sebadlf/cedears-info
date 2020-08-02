@@ -7,10 +7,7 @@ from selenium.webdriver.support.expected_conditions import presence_of_element_l
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
-from pyvirtualdisplay import Display
-
-# display = Display(visible=0, size=(1980, 1200))
-# display.start()
+from get_webdriver import get_webdriver
 
 from utils import get_float
 
@@ -19,16 +16,6 @@ import time
 import sys
 
 from datetime import datetime as dt
-
-#/usr/lib/chromium-browser/chromedriver
-# chrome_driver_path = '/usr/lib/chromium-browser/chromedriver
-
-chrome_driver_path = './chromedriver'
-
-chrome_options = Options()
-chrome_options.add_argument('--headless')
-chrome_options.add_argument("--no-sandbox")
-chrome_options.add_argument("--disable-dev-shm-usage")
 
 def get_result_dict():
     result = {
@@ -59,9 +46,7 @@ def get_yahoo_data(ticker):
 
 def get_yahoo_raw_data(ticker):
 
-    wd = webdriver.Chrome(
-    executable_path=chrome_driver_path, options=chrome_options
-    )
+    wd = get_webdriver()
 
     url = f"https://finance.yahoo.com/quote/{ticker}"
 
@@ -134,7 +119,7 @@ def get_yahoo_raw_data(ticker):
 
     return result
 
-print(get_yahoo_data("amzn"))
+#print(get_yahoo_data("amzn"))
 
 
 def get_current_value(ticker):
