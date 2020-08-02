@@ -105,4 +105,4 @@ def get_finviz_raw_data(ticker):
 
         return result
 
-print(get_finviz_data("bidu"))
+#print(get_finviz_data("bidu"))
