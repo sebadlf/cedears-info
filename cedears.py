@@ -8,6 +8,8 @@ from marketwatch import get_result_dict as get_marketwatch_empty_dict
 
 from pyvirtualdisplay import Display
 
+from multiprocessing import Pool
+
 import json
 import time
 import gspread
@@ -87,77 +89,100 @@ row = 3
 data = []
 importants = []
 
-for ticker in tickers:
-    print(ticker)
+def get_data(params):
+    ticker = params[0]
+    provider = params[1]
 
-    #ticker = ticker.replace('.', '')
+    result = None
 
-    yahoo = get_yahoo_data(ticker)
-    finviz = get_finviz_data(ticker)
-    marketwatch = get_marketwatch_data(ticker)  
+    if provider == 'yahoo':
+        result = get_yahoo_data(ticker)
+    elif provider == 'finviz':
+        result = get_finviz_data(ticker)
+    else:
+        result = get_marketwatch_data(ticker)
 
-    yahoo_target = yahoo["one_year_target"] if yahoo["one_year_target"] else 0
-    marketwatch_target = marketwatch["one_year_target"] if marketwatch["one_year_target"] else 0
-    target_ratio = 1
+    return result
 
-    if (yahoo_target != marketwatch_target):
-        if (yahoo_target > marketwatch_target):
-            target_ratio = marketwatch_target / yahoo_target
+if __name__ == '__main__':
+    for ticker in tickers:
+        print(ticker)
 
-        if (marketwatch_target > yahoo_target):
-            target_ratio = yahoo_target / marketwatch_target
+        #ticker = ticker.replace('.', '')
 
-    if (target_ratio < 0.5):
-        marketwatch = get_marketwatch_empty_dict()
+        all_data = []
+        with Pool(3) as p:
+            all_data = p.map(get_data, [(ticker, 'yahoo'), (ticker, 'finviz'), (ticker, 'marketwatch')])
 
-    current = {
-        "ticker": ticker,
-        "finviz": finviz,
-        "yahoo": yahoo,
-        "marketwatch": marketwatch,
-        "last_update": dt.now().isoformat()
-    }
+        # yahoo = get_yahoo_data(ticker)
+        # finviz = get_finviz_data(ticker)
+        # marketwatch = get_marketwatch_data(ticker)  
+        yahoo = all_data[0]
+        finviz = all_data[1]
+        marketwatch = all_data[2]
 
-    ratio = 0
+        yahoo_target = yahoo["one_year_target"] if yahoo["one_year_target"] else 0
+        marketwatch_target = marketwatch["one_year_target"] if marketwatch["one_year_target"] else 0
+        target_ratio = 1
 
-    try:
-        ratio = yahoo["one_year_target"] / yahoo["current_price"]
-    except:
-        print(f"N/A: {ticker}")
+        if (yahoo_target != marketwatch_target):
+            if (yahoo_target > marketwatch_target):
+                target_ratio = marketwatch_target / yahoo_target
 
-    row_values = []
+            if (marketwatch_target > yahoo_target):
+                target_ratio = yahoo_target / marketwatch_target
 
-    row_values.append(ticker)
-    row_values.append(yahoo["current_price"])
-    row_values.append(yahoo["price_type"])
-    row_values.append(yahoo["est_return"])
-    row_values.append(yahoo["one_year_target_low"])
-    row_values.append(yahoo["one_year_target"])
-    row_values.append(yahoo["one_year_target_high"])
-    row_values.append(yahoo["recommendation"])
+        if (target_ratio < 0.5):
+            marketwatch = get_marketwatch_empty_dict()
 
-    row_values.append(finviz["sma20"])
-    row_values.append(finviz["sma50"])
-    row_values.append(finviz["sma200"])
+        current = {
+            "ticker": ticker,
+            "finviz": finviz,
+            "yahoo": yahoo,
+            "marketwatch": marketwatch,
+            "last_update": dt.now().isoformat()
+        }
 
-    row_values.append(finviz["one_year_target"])
-    row_values.append(yahoo["recommendation"])
+        ratio = 0
 
-    row_values.append(marketwatch["one_year_target"])
-    row_values.append(marketwatch["recommendation"])
-    row_values.append(marketwatch["recommendation_str"])
-    row_values.append(marketwatch["recommendation_calc_str"])
+        try:
+            ratio = yahoo["one_year_target"] / yahoo["current_price"]
+        except:
+            print(f"N/A: {ticker}")
 
-    col = 1
-    for value in row_values:
-        write_cell(row, col, value)
-        col += 1
+        row_values = []
 
-    row = row + 1
+        row_values.append(ticker)
+        row_values.append(yahoo["current_price"])
+        row_values.append(yahoo["price_type"])
+        row_values.append(yahoo["est_return"])
+        row_values.append(yahoo["one_year_target_low"])
+        row_values.append(yahoo["one_year_target"])
+        row_values.append(yahoo["one_year_target_high"])
+        row_values.append(yahoo["recommendation"])
 
-    data.append(current)
-    write_data(data)
+        row_values.append(finviz["sma20"])
+        row_values.append(finviz["sma50"])
+        row_values.append(finviz["sma200"])
 
-    # if ratio > 1:
-    #     importants.append(current)
-    #     write_important(importants)
+        row_values.append(finviz["one_year_target"])
+        row_values.append(yahoo["recommendation"])
+
+        row_values.append(marketwatch["one_year_target"])
+        row_values.append(marketwatch["recommendation"])
+        row_values.append(marketwatch["recommendation_str"])
+        row_values.append(marketwatch["recommendation_calc_str"])
+
+        col = 1
+        for value in row_values:
+            write_cell(row, col, value)
+            col += 1
+
+        row = row + 1
+
+        data.append(current)
+        write_data(data)
+
+        # if ratio > 1:
+        #     importants.append(current)
+        #     write_important(importants)
