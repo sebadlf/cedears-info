@@ -31,6 +31,8 @@ def get_result_dict():
 def get_finviz_data(ticker):
     result = get_result_dict()
 
+    print(f"finviz start {dt.now().isoformat()}")
+
     try:
         result = get_finviz_raw_data(ticker)
         result["success"] = True
@@ -39,6 +41,8 @@ def get_finviz_data(ticker):
         result["success"] = False
     
     result["datetime"] = dt.now().isoformat()
+
+    print(f"finviz end {dt.now().isoformat()}")
 
     return result
 

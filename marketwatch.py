@@ -21,6 +21,8 @@ def get_marketwatch_data(ticker):
 
     result = get_result_dict()
 
+    print(f"marketwatch start {dt.now().isoformat()}")
+
     try:
         result = get_marketwatch_raw_data(ticker)
         result["success"] = True
@@ -29,6 +31,8 @@ def get_marketwatch_data(ticker):
         result["success"] = False
     
     result["datetime"] = dt.now().isoformat()
+
+    print(f"marketwatch end {dt.now().isoformat()}")
 
     return result
 

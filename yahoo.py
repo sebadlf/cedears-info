@@ -33,6 +33,8 @@ def get_result_dict():
 def get_yahoo_data(ticker):
     result = get_result_dict()
 
+    print(f"yahoo start {dt.now().isoformat()}")
+
     try:
         result = get_yahoo_raw_data(ticker)
         result["success"] = True
@@ -41,6 +43,8 @@ def get_yahoo_data(ticker):
         result["success"] = False
     
     result["datetime"] = dt.now().isoformat()
+
+    print(f"yahoo end {dt.now().isoformat()}")
 
     return result
 
