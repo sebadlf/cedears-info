@@ -16,7 +16,7 @@ def get_result_dict():
 
     return result
         
-def get_marketwatch_data(ticker):
+def get_marketwatch_data(ticker, q):
     ticker = ticker.replace("-", '.')
 
     result = get_result_dict()
@@ -33,6 +33,9 @@ def get_marketwatch_data(ticker):
     result["datetime"] = dt.now().isoformat()
 
     print(f"marketwatch end {dt.now().isoformat()}")
+
+    if q != None:
+        q.put(result)
 
     return result
 

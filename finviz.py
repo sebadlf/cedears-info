@@ -28,7 +28,7 @@ def get_result_dict():
 
     return result
         
-def get_finviz_data(ticker):
+def get_finviz_data(ticker, q):
     result = get_result_dict()
 
     print(f"finviz start {dt.now().isoformat()}")
@@ -43,6 +43,9 @@ def get_finviz_data(ticker):
     result["datetime"] = dt.now().isoformat()
 
     print(f"finviz end {dt.now().isoformat()}")
+
+    if q != None:
+        q.put(result)
 
     return result
 

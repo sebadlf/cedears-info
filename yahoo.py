@@ -30,7 +30,7 @@ def get_result_dict():
 
     return result
         
-def get_yahoo_data(ticker):
+def get_yahoo_data(ticker, q):
     result = get_result_dict()
 
     print(f"yahoo start {dt.now().isoformat()}")
@@ -45,6 +45,9 @@ def get_yahoo_data(ticker):
     result["datetime"] = dt.now().isoformat()
 
     print(f"yahoo end {dt.now().isoformat()}")
+
+    if q != None:
+        q.put(result)
 
     return result
 

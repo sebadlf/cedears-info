@@ -8,7 +8,7 @@ from marketwatch import get_result_dict as get_marketwatch_empty_dict
 
 from pyvirtualdisplay import Display
 
-from multiprocessing import Pool
+from multiprocessing import Process, Queue
 
 import json
 import time
@@ -89,37 +89,37 @@ row = 3
 data = []
 importants = []
 
-def get_data(params):
-    ticker = params[0]
-    provider = params[1]
-
-    result = None
-
-    if provider == 'yahoo':
-        result = get_yahoo_data(ticker)
-    elif provider == 'finviz':
-        result = get_finviz_data(ticker)
-    else:
-        result = get_marketwatch_data(ticker)
-
-    return result
-
 if __name__ == '__main__':
     for ticker in tickers:
         print(ticker)
 
         #ticker = ticker.replace('.', '')
 
+        yahoo_result = Queue()
+        finviz_result = Queue()
+        marketwatch_result = Queue()
+
         all_data = []
-        with Pool(3) as p:
-            all_data = p.map(get_data, [(ticker, 'yahoo'), (ticker, 'finviz'), (ticker, 'marketwatch')])
+        p_yahoo = Process(target=get_yahoo_data, args=(ticker, yahoo_result))
+        p_yahoo.start()
+
+        p_finviz = Process(target=get_finviz_data, args=(ticker, finviz_result))
+        p_finviz.start()
+
+        p_marketwatch = Process(target=get_marketwatch_data, args=(ticker, marketwatch_result))
+        p_marketwatch.start()
+        
+        p_yahoo.join()
+        p_finviz.join()
+        p_marketwatch.join()        
+
+        yahoo = yahoo_result.get()
+        finviz = finviz_result.get()
+        marketwatch = marketwatch_result.get()
 
         # yahoo = get_yahoo_data(ticker)
         # finviz = get_finviz_data(ticker)
         # marketwatch = get_marketwatch_data(ticker)  
-        yahoo = all_data[0]
-        finviz = all_data[1]
-        marketwatch = all_data[2]
 
         yahoo_target = yahoo["one_year_target"] if yahoo["one_year_target"] else 0
         marketwatch_target = marketwatch["one_year_target"] if marketwatch["one_year_target"] else 0
