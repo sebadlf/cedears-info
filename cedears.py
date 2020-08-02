@@ -15,6 +15,12 @@ import time
 import gspread
 import sys
 
+import logging
+logging.basicConfig(filename='app.log', filemode='w', format='%(process)d-%(levelname)s-%(message)s')
+logging.warning('This will get logged to a file')
+
+
+
 if sys.platform == 'linux':
     display = Display(visible=0, size=(1980, 1200))
     display.start()
