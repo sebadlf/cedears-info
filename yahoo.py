@@ -9,6 +9,8 @@ from selenium.webdriver.common.by import By
 
 from get_webdriver import get_webdriver
 
+from logger import log
+
 from utils import get_float
 
 import requests
@@ -33,18 +35,18 @@ def get_result_dict():
 def get_yahoo_data(ticker, q):
     result = get_result_dict()
 
-    print(f"yahoo start {dt.now().isoformat()}")
+    log(f"yahoo start {dt.now().isoformat()}")
 
     try:
         result = get_yahoo_raw_data(ticker)
         result["success"] = True
     except:
-        print(f"{ticker} error yahoo")
+        log(f"{ticker} error yahoo")
         result["success"] = False
     
     result["datetime"] = dt.now().isoformat()
 
-    print(f"yahoo end {dt.now().isoformat()}")
+    log(f"yahoo end {dt.now().isoformat()}")
 
     if q != None:
         q.put(result)
@@ -57,7 +59,7 @@ def get_yahoo_raw_data(ticker):
 
     url = f"https://finance.yahoo.com/quote/{ticker}"
 
-    #print(url)
+    #log(url)
 
     with wd as driver:
         # Set timeout time 
@@ -81,7 +83,7 @@ def get_yahoo_raw_data(ticker):
 
         est_return = analisys[2].text.replace(" Est. Return", "")
 
-        #print(current_price, one_year_target, price_type, est_return)
+        #log(current_price, one_year_target, price_type, est_return)
         
         recommendation = None
         try:    
@@ -126,13 +128,13 @@ def get_yahoo_raw_data(ticker):
 
     return result
 
-#print(get_yahoo_data("amzn"))
+#log(get_yahoo_data("amzn"))
 
 
 def get_current_value(ticker):
     url = f"https://query1.finance.yahoo.com/v8/finance/chart/{ticker}?region=US&lang=en-US&includePrePost=false&interval=2m&range=1d&corsDomain=finance.yahoo.com&.tsrc=finance"
 
-    #print(url)
+    #log(url)
 
     r = requests.get(url)
 

@@ -13,6 +13,9 @@ from utils import get_float
 
 from get_webdriver import get_webdriver
 
+from logger import log
+
+
 import time
 import sys
 
@@ -31,18 +34,18 @@ def get_result_dict():
 def get_finviz_data(ticker, q):
     result = get_result_dict()
 
-    print(f"finviz start {dt.now().isoformat()}")
+    log(f"finviz start {dt.now().isoformat()}")
 
     try:
         result = get_finviz_raw_data(ticker)
         result["success"] = True
     except:
-        print(f"{ticker} error yahoo")
+        log(f"{ticker} error yahoo")
         result["success"] = False
     
     result["datetime"] = dt.now().isoformat()
 
-    print(f"finviz end {dt.now().isoformat()}")
+    log(f"finviz end {dt.now().isoformat()}")
 
     if q != None:
         q.put(result)
@@ -56,7 +59,7 @@ def get_finviz_raw_data(ticker):
 
     url = f"https://finviz.com/quote.ashx?t={ticker}"
 
-    #print(url)
+    #log(url)
 
     with wd as driver:
         # Set timeout time 
@@ -112,4 +115,4 @@ def get_finviz_raw_data(ticker):
 
         return result
 
-#print(get_finviz_data("bidu"))
+#log(get_finviz_data("bidu"))

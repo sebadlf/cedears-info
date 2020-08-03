@@ -3,6 +3,8 @@ from bs4 import BeautifulSoup
 
 from datetime import datetime as dt
 
+from logger import log
+
 from utils import get_float
 
 def get_result_dict():
@@ -21,18 +23,18 @@ def get_marketwatch_data(ticker, q):
 
     result = get_result_dict()
 
-    print(f"marketwatch start {dt.now().isoformat()}")
+    log(f"marketwatch start {dt.now().isoformat()}")
 
     try:
         result = get_marketwatch_raw_data(ticker)
         result["success"] = True
     except:
-        print(f"{ticker} error yahoo")
+        log(f"{ticker} error yahoo")
         result["success"] = False
     
     result["datetime"] = dt.now().isoformat()
 
-    print(f"marketwatch end {dt.now().isoformat()}")
+    log(f"marketwatch end {dt.now().isoformat()}")
 
     if q != None:
         q.put(result)
@@ -118,4 +120,4 @@ def get_marketwatch_raw_data(ticker):
     return result
 
 
-#print(get_marketwatch_data("bidu"))
+#log(get_marketwatch_data("bidu"))
