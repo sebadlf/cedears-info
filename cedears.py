@@ -84,15 +84,15 @@ def write_cell(row, col, value):
         try:
             sh.sheet1.update_cell(row, col, value)
         except:
-            log("Unable to write", row, col, value)
-
-row = 3
-
-data = []
-importants = []
+            log(f"Unable to write, {row}, {col}, {value}")
 
 if __name__ == '__main__':
     while True:
+        row = 3
+
+        data = []
+        importants = []
+
         for ticker in tickers:
             log(ticker)
 
