@@ -82,7 +82,7 @@ def write_cell(row, col, value):
     #log(row, col, value)
     if (value):
         try:
-            sh.sheet1.update_cell(row, col, value)
+            sh.worksheet("Raw").update_cell(row, col, value)
         except:
             log(f"Unable to write, {row}, {col}, {value}")
 
@@ -94,7 +94,7 @@ if __name__ == '__main__':
         importants = []
 
         for ticker in tickers:
-            log(ticker)
+            log(f"{ticker} - {dt.now().isoformat()}" )
 
             #ticker = ticker.replace('.', '')
 
@@ -183,8 +183,8 @@ if __name__ == '__main__':
 
             row = row + 1
 
-            data.append(current)
-            write_data(data)
+            #data.append(current)
+            #write_data(data)
 
             # if ratio > 1:
             #     importants.append(current)

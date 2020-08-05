@@ -34,18 +34,18 @@ def get_result_dict():
 def get_finviz_data(ticker, q):
     result = get_result_dict()
 
-    log(f"finviz start {dt.now().isoformat()}")
+    #log(f"finviz start {dt.now().isoformat()}")
 
     try:
         result = get_finviz_raw_data(ticker)
         result["success"] = True
     except:
-        log(f"{ticker} error yahoo")
+        log(f"{ticker} error finviz")
         result["success"] = False
     
     result["datetime"] = dt.now().isoformat()
 
-    log(f"finviz end {dt.now().isoformat()}")
+    #log(f"finviz end {dt.now().isoformat()}")
 
     if q != None:
         q.put(result)

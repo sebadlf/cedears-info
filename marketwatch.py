@@ -23,18 +23,18 @@ def get_marketwatch_data(ticker, q):
 
     result = get_result_dict()
 
-    log(f"marketwatch start {dt.now().isoformat()}")
+    #log(f"marketwatch start {dt.now().isoformat()}")
 
     try:
         result = get_marketwatch_raw_data(ticker)
         result["success"] = True
     except:
-        log(f"{ticker} error yahoo")
+        log(f"{ticker} error marketwatch")
         result["success"] = False
     
     result["datetime"] = dt.now().isoformat()
 
-    log(f"marketwatch end {dt.now().isoformat()}")
+    #log(f"marketwatch end {dt.now().isoformat()}")
 
     if q != None:
         q.put(result)
