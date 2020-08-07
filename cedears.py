@@ -88,13 +88,15 @@ def write_cell(row, col, value):
 
 if __name__ == '__main__':
     while True:
+        log("Init Cicle")
+
         row = 3
 
         data = []
         importants = []
 
         for ticker in tickers:
-            log(f"{ticker} - {dt.now().isoformat()}" )
+            log(f"{ticker} \t {dt.now().isoformat()}" )
 
             #ticker = ticker.replace('.', '')
 
