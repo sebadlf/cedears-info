@@ -14,11 +14,11 @@ RUN pip3 install gspread
 
 RUN apt-get install nano
 
-RUN mkdir ~/.config
+RUN mkdir /root/.config
 
-RUN mkdir ~/.config/gspread/
+RUN mkdir /root/.config/gspread/
 
-COPY ./authorized_user.json ~/.config/gspread/authorized_user.json
+COPY ./authorized_user.json /root/.config/gspread/authorized_user.json
 
 ADD . /app
 
