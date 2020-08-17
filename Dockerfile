@@ -12,6 +12,8 @@ RUN pip3 install beautifulsoup4
 
 RUN pip3 install gspread
 
+RUN apt-get install nano
+
 RUN mkdir ~/.config
 
 RUN mkdir ~/.config/gspread/
