@@ -8,7 +8,7 @@ RUN pip3 install selenium
 
 RUN pip3 install pyvirtualdisplay
 
-RUN pip3 install BeautifulSoup
+RUN pip3 install beautifulsoup4
 
 RUN mkdir ~/.config
 
