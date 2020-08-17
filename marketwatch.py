@@ -1,4 +1,5 @@
 import requests
+import traceback
 from bs4 import BeautifulSoup
 
 from datetime import datetime as dt
@@ -30,6 +31,7 @@ def get_marketwatch_data(ticker, q = None):
         result["success"] = True
     except:
         log(f"{ticker} error marketwatch")
+        log(traceback.format_exc())
         result["success"] = False
     
     result["datetime"] = dt.now().isoformat()

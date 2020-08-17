@@ -7,6 +7,8 @@ from selenium.webdriver.support.expected_conditions import presence_of_element_l
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
+import traceback
+
 from datetime import datetime as dt
 
 from utils import get_float
@@ -41,6 +43,7 @@ def get_finviz_data(ticker, q = None):
         result["success"] = True
     except:
         log(f"{ticker} error finviz")
+        log(traceback.format_exc())
         result["success"] = False
     
     result["datetime"] = dt.now().isoformat()

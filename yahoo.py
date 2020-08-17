@@ -7,6 +7,8 @@ from selenium.webdriver.support.expected_conditions import presence_of_element_l
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
+import traceback
+
 from get_webdriver import get_webdriver
 
 from logger import log
@@ -42,6 +44,7 @@ def get_yahoo_data(ticker, q = None):
         result["success"] = True
     except:
         log(f"{ticker} error yahoo")
+        log(traceback.format_exc())
         result["success"] = False
     
     result["datetime"] = dt.now().isoformat()
