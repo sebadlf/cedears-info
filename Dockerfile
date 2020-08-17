@@ -8,6 +8,8 @@ RUN pip3 install selenium
 
 RUN pip3 install pyvirtualdisplay
 
+RUN pip3 install BeautifulSoup
+
 RUN mkdir ~/.config
 
 RUN mkdir ~/.config/gspread/
