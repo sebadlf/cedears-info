@@ -6,7 +6,7 @@ import sys
 chrome_driver_path = './chromedriver'
 
 if sys.platform == 'linux':
-    chrome_driver_path = '/usr/lib/chromium-browser/chromedriver'
+    chrome_driver_path = '/usr/bin/chromedriver'
 
 chrome_options = Options()
 chrome_options.add_argument('--headless')
