@@ -86,6 +86,8 @@ def write_cell(row, col, value):
         except:
             log(f"Unable to write, {row}, {col}, {value}")
 
+print("Init")
+
 while True:
     log("Init Cicle")
 
