@@ -8,8 +8,6 @@ RUN pip3 install selenium
 
 RUN pip3 install pyvirtualdisplay
 
-COPY test.py test.py
-
 RUN mkdir ~/.config
 
 RUN mkdir ~/.config/gspread/
