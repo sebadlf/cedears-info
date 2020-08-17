@@ -10,6 +10,8 @@ RUN pip3 install pyvirtualdisplay
 
 RUN pip3 install beautifulsoup4
 
+RUN pip3 install gspread
+
 RUN mkdir ~/.config
 
 RUN mkdir ~/.config/gspread/
