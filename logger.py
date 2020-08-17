@@ -5,4 +5,4 @@ logger.warning('Cedears Start')
 
 def log(str):
     print(str)
-    logger.warning(str)
+    #logger.warning(str)

@@ -31,7 +31,7 @@ def get_result_dict():
 
     return result
         
-def get_finviz_data(ticker, q):
+def get_finviz_data(ticker, q = None):
     result = get_result_dict()
 
     #log(f"finviz start {dt.now().isoformat()}")

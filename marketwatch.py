@@ -18,7 +18,7 @@ def get_result_dict():
 
     return result
         
-def get_marketwatch_data(ticker, q):
+def get_marketwatch_data(ticker, q = None):
     ticker = ticker.replace("-", '.')
 
     result = get_result_dict()

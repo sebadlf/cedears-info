@@ -17,6 +17,8 @@ import requests
 import time
 import sys
 
+import traceback
+
 from datetime import datetime as dt
 
 def get_result_dict():
@@ -32,7 +34,7 @@ def get_result_dict():
 
     return result
         
-def get_yahoo_data(ticker, q):
+def get_yahoo_data(ticker, q = None):
     result = get_result_dict()
 
     #log(f"yahoo start {dt.now().isoformat()}")
@@ -42,6 +44,7 @@ def get_yahoo_data(ticker, q):
         result["success"] = True
     except:
         log(f"{ticker} error yahoo")
+        traceback.print_stack()
         result["success"] = False
     
     result["datetime"] = dt.now().isoformat()

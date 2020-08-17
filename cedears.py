@@ -100,31 +100,31 @@ if __name__ == '__main__':
 
             #ticker = ticker.replace('.', '')
 
-            yahoo_result = Queue()
-            finviz_result = Queue()
-            marketwatch_result = Queue()
+            # yahoo_result = Queue()
+            # finviz_result = Queue()
+            # marketwatch_result = Queue()
 
-            all_data = []
-            p_yahoo = Process(target=get_yahoo_data, args=(ticker, yahoo_result))
-            p_yahoo.start()
+            # all_data = []
+            # p_yahoo = Process(target=get_yahoo_data, args=(ticker, yahoo_result))
+            # p_yahoo.start()
 
-            p_finviz = Process(target=get_finviz_data, args=(ticker, finviz_result))
-            p_finviz.start()
+            # p_finviz = Process(target=get_finviz_data, args=(ticker, finviz_result))
+            # p_finviz.start()
 
-            p_marketwatch = Process(target=get_marketwatch_data, args=(ticker, marketwatch_result))
-            p_marketwatch.start()
+            # p_marketwatch = Process(target=get_marketwatch_data, args=(ticker, marketwatch_result))
+            # p_marketwatch.start()
             
-            p_yahoo.join()
-            p_finviz.join()
-            p_marketwatch.join()        
+            # p_yahoo.join()
+            # p_finviz.join()
+            # p_marketwatch.join()        
 
-            yahoo = yahoo_result.get()
-            finviz = finviz_result.get()
-            marketwatch = marketwatch_result.get()
+            # yahoo = yahoo_result.get()
+            # finviz = finviz_result.get()
+            # marketwatch = marketwatch_result.get()
 
-            # yahoo = get_yahoo_data(ticker)
-            # finviz = get_finviz_data(ticker)
-            # marketwatch = get_marketwatch_data(ticker)  
+            yahoo = get_yahoo_data(ticker)
+            finviz = get_finviz_data(ticker)
+            marketwatch = get_marketwatch_data(ticker)  
 
             yahoo_target = yahoo["one_year_target"] if yahoo["one_year_target"] else 0
             marketwatch_target = marketwatch["one_year_target"] if marketwatch["one_year_target"] else 0
