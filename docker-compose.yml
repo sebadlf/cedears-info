@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  scrapper:
+    build: .
+    command: python3 ./app/cedears.py
+    ports:
+      - "4000:4000" # jekyll serve
+    volumes:
+      - .:/app

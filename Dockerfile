@@ -21,5 +21,3 @@ RUN mkdir /root/.config/gspread/
 COPY ./authorized_user.json /root/.config/gspread/authorized_user.json
 
 ADD . /app
-
-CMD ["python3", "./app/cedears.py"]
