@@ -86,21 +86,21 @@ def get_finviz_raw_data(ticker):
             text = driver.find_elements_by_css_selector(".snapshot-td2")[67].text.replace("%", "")
             sma20 = current_price / (1 + get_float(text) / 100)
         except:
-            pass    
+            log(traceback.format_exc())    
 
         sma50 = None
         try:
             text = driver.find_elements_by_css_selector(".snapshot-td2")[68].text.replace("%", "")
             sma50 = current_price / (1 + get_float(text) / 100)
         except:
-            pass    
+            log(traceback.format_exc())    
 
         sma200 = None
         try:
             text = driver.find_elements_by_css_selector(".snapshot-td2")[69].text.replace("%", "")
             sma200 = current_price / (1 + get_float(text) / 100)
         except:
-            pass   
+            log(traceback.format_exc())   
 
         # must close the driver after task finished
         driver.close()

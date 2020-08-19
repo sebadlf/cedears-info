@@ -105,7 +105,7 @@ def get_yahoo_raw_data(ticker):
             recommendation = driver.find_element_by_css_selector('[data-test="rec-rating-txt"]').text        
             recommendation = get_float(recommendation)
         except:
-            sys.exc_info()
+            log(traceback.format_exc())
 
         one_year_target_low = None
         one_year_target_high = None
@@ -115,7 +115,7 @@ def get_yahoo_raw_data(ticker):
             one_year_target_low = get_float(analisys[1].text)
             one_year_target_high = get_float(analisys[3].text)      
         except:
-            pass
+            log(traceback.format_exc())
 
         driver.close()
 
