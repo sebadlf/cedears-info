@@ -82,9 +82,11 @@ def get_yahoo_raw_data(ticker):
 
         analisys = driver.find_elements_by_css_selector("#fr-val-mod>div>div")
 
-        price_type = analisys[1].text
+        # price_type = analisys[1].text
+        price_type = None
 
-        est_return = analisys[2].text.replace(" Est. Return", "")
+        # est_return = analisys[2].text.replace(" Est. Return", "")
+        est_return = None
 
         #log(current_price, one_year_target, price_type, est_return)
         

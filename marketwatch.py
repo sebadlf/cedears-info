@@ -49,7 +49,7 @@ def get_marketwatch_raw_data(ticker):
 
     soup = BeautifulSoup(page.content, 'html.parser')
 
-    current_price = soup.select('.pricewrap .data')[0].text.strip()
+    current_price = soup.select('.intraday__price')[0].text.replace("$", "").strip()
     current_price = get_float(current_price)
 
     recommendation_str = soup.select('.recommendation')[0].text.strip()
