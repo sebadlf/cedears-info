@@ -1,3 +1,7 @@
+service_account.json 
+venv/
+vnev/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

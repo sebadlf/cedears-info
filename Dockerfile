@@ -18,6 +18,7 @@ RUN mkdir /root/.config
 
 RUN mkdir /root/.config/gspread/
 
-COPY ./authorized_user.json /root/.config/gspread/authorized_user.json
+# COPY ./authorized_user.json /root/.config/gspread/authorized_user.json
+COPY ./service_account.json  /root/.config/gspread/service_account.json
 
 ADD . /app
