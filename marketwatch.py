@@ -52,7 +52,7 @@ def get_marketwatch_raw_data(ticker):
     current_price = soup.select('.intraday__price')[0].text.replace("$", "").strip()
     current_price = get_float(current_price)
 
-    recommendation_str = soup.select('.recommendation')[0].text.strip()
+    recommendation_str = soup.select('.analyst__option active')[0].text.strip()
 
     recomendation_values = [
         (1 + 1.24) / 2,
@@ -70,7 +70,7 @@ def get_marketwatch_raw_data(ticker):
     #     5
     # ]
 
-    recomendation_array = soup.select(".ratings tr td:nth-child(2)")
+    recomendation_array = soup.select(".analyst-ratings td:nth-child(4)")
     sum = 0
     count = 0
 
