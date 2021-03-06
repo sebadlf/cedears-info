@@ -21,7 +21,7 @@ if sys.platform == 'linux':
     display = Display(visible=0, size=(1980, 1200))
     display.start()
 
-gc = gspread.oauth()
+gc = gspread.service_account()
 
 sh = gc.open("Cedears")
 
