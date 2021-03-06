@@ -107,7 +107,7 @@ def get_marketwatch_raw_data(ticker):
 
         recommendation = (recommendation_calc + 0.01 - 1) * 2 + 1
 
-    one_year_target = soup.select('.snapshot td')[3].text.strip()
+    one_year_target = soup.select('.region--primary div:nth-child(1) table tr td.w25')[1].text.strip()
     one_year_target = get_float(one_year_target)
 
     result = {
